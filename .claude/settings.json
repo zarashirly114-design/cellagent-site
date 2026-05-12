@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python run.py *)",
+      "Bash(python agents/*.py)",
+      "Bash(python utils/*.py)",
+      "Bash(pip install -r requirements.txt)",
+      "Bash(pip install *)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(pwd)",
+      "Read",
+      "Write",
+      "Edit"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(sudo *)"
+    ]
+  },
+  "env": {
+    "PROJECT_NAME": "cell-agent-platform",
+    "DATA_DIR": "./data",
+    "REPORTS_DIR": "./reports",
+    "AGENTS_DIR": "./agents"
+  }
+}
