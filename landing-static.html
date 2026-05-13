@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CellAgent</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,sans-serif;background:#0a0f1a;color:#f1f5f9;line-height:1.6}
+.container{max-width:640px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+.header{text-align:center;padding:48px 0 32px}
+.logo{font-size:28px;font-weight:900;color:#c9a84c}
+.logo-sub{font-size:13px;color:#94a3b8;letter-spacing:2px}
+.hero{text-align:center;padding:24px 0 40px}
+.hero h1{font-size:26px;font-weight:800;margin-bottom:12px;background:linear-gradient(135deg,#f1f5f9,#c9a84c);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:15px;color:#94a3b8}
+.stats{display:flex;gap:16px;margin-bottom:24px}
+.stat-card{flex:1;background:#111827;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:20px;text-align:center}
+.stat-num{font-size:32px;font-weight:900;color:#c9a84c}
+.stat-label{font-size:12px;color:#94a3b8;margin-top:4px}
+.products{background:#111827;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px;margin-bottom:24px}
+.products h2{font-size:18px;margin-bottom:20px;color:#c9a84c}
+.product-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.product-item:last-child{border-bottom:none}
+.product-tag{display:inline-block;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:600;flex-shrink:0}
+.tag-cart{background:rgba(239,68,68,0.15);color:#f87171}
+.tag-stem{background:rgba(34,197,94,0.15);color:#4ade80}
+.tag-til{background:rgba(59,130,246,0.15);color:#60a5fa}
+.product-name{font-size:14px;flex:1}
+.product-company{font-size:12px;color:#64748b}
+.form-card{background:#111827;border:1px solid rgba(201,168,76,0.2);border-radius:16px;padding:28px;margin-bottom:24px}
+.form-card h2{font-size:18px;margin-bottom:4px}
+.subtitle{font-size:13px;color:#94a3b8;margin-bottom:20px}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:13px;color:#94a3b8;margin-bottom:6px}
+.form-input{width:100%;padding:12px 16px;border-radius:10px;background:#0a0f1a;border:1px solid rgba(255,255,255,0.1);color:#f1f5f9;font-size:15px;font-family:inherit}
+.form-input:focus{outline:none;border-color:#c9a84c}
+.form-input::placeholder{color:#4a5568}
+.type-selector{display:flex;gap:10px;margin-bottom:16px}
+.type-option{flex:1;padding:14px 12px;border-radius:10px;border:2px solid rgba(255,255,255,0.1);background:transparent;color:#94a3b8;cursor:pointer;text-align:center;font-family:inherit;font-size:14px}
+.type-option:hover{border-color:rgba(201,168,76,0.3)}
+.type-option.selected{border-color:#c9a84c;background:rgba(201,168,76,0.1);color:#c9a84c}
+.type-icon{font-size:24px;display:block;margin-bottom:6px}
+.form-row{display:flex;gap:12px}
+.form-row .form-group{flex:1}
+.btn-submit{width:100%;padding:14px;border-radius:10px;background:#c9a84c;color:#0a0f1a;font-size:16px;font-weight:700;border:none;cursor:pointer;font-family:inherit;margin-top:8px}
+.btn-submit:hover{background:#dbb960}
+.btn-submit:disabled{background:#4a5568;cursor:not-allowed}
+.success-msg{display:none;text-align:center;padding:32px}
+.success-msg.show{display:block}
+.success-icon{font-size:48px;margin-bottom:16px}
+.success-msg h2{font-size:20px;margin-bottom:8px;color:#4ade80}
+.success-msg p{font-size:14px;color:#94a3b8}
+.footer{text-align:center;padding:24px 0 40px;font-size:12px;color:#4a5568}
+@media(max-width:480px){.type-selector{flex-direction:column}.form-row{flex-direction:column;gap:0}.stats{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<div class="logo">CellAgent</div>
+<div class="logo-sub">细胞代理通</div>
+</div>
+<div class="hero">
+<h1>细胞治疗产品代理机会</h1>
+<p>15款细胞治疗产品及细胞存储服务正在寻找区域代理商</p>
+</div>
+<div class="stats">
+<div class="stat-card"><div class="stat-num">15</div><div class="stat-label">可代理产品/服务</div></div>
+<div class="stat-card"><div class="stat-num">67</div><div class="stat-label">入库企业</div></div>
+<div class="stat-card"><div class="stat-num">42</div><div class="stat-label">在研管线</div></div>
+</div>
+<div class="products">
+<h2>可代理产品与服务清单</h2>
+<div class="product-item"><span class="product-tag tag-cart">CAR-T</span><span class="product-name">奕凯达</span><span class="product-company">复星凯特</span></div>
+<div class="product-item"><span class="product-tag tag-cart">CAR-T</span><span class="product-name">倍诺达</span><span class="product-company">药明巨诺</span></div>
+<div class="product-item"><span class="product-tag tag-cart">CAR-T</span><span class="product-name">福可苏</span><span class="product-company">科济药业</span></div>
+<div class="product-item"><span class="product-tag tag-cart">CAR-T</span><span class="product-name">源瑞达</span><span class="product-company">合源生物</span></div>
+<div class="product-item"><span class="product-tag tag-cart">CAR-T</span><span class="product-name">赛恺泽</span><span class="product-company">科济药业</span></div>
+<div class="product-item"><span class="product-tag tag-cart">CAR-T</span><span class="product-name">卡卫荻</span><span class="product-company">传奇生物</span></div>
+<div class="product-item"><span class="product-tag tag-stem">干细胞</span><span class="product-name">睿铂生</span><span class="product-company">铂生卓越</span></div>
+<div class="product-item"><span class="product-tag tag-til">TIL</span><span class="product-name">GC203</span><span class="product-company">君赛生物</span></div>
+<div class="product-item"><span class="product-tag tag-stem">存储</span><span class="product-name">细胞存储服务</span><span class="product-company">上海细胞治疗集团</span></div>
+<div class="product-item"><span class="product-tag tag-stem">存储</span><span class="product-name">细胞存储服务</span><span class="product-company">北科生物</span></div>
+<div class="product-item"><span class="product-tag tag-stem">存储</span><span class="product-name">细胞存储服务</span><span class="product-company">中源协和</span></div>
+<div class="product-item"><span class="product-tag tag-stem">存储</span><span class="product-name">细胞存储服务</span><span class="product-company">博雅干细胞</span></div>
+<div class="product-item"><span class="product-tag tag-stem">存储</span><span class="product-name">细胞存储服务</span><span class="product-company">深圳泽医</span></div>
+<div class="product-item"><span class="product-tag tag-stem">存储</span><span class="product-name">细胞存储服务</span><span class="product-company">汉氏联合</span></div>
+<div class="product-item"><span class="product-tag tag-stem">存储</span><span class="product-name">细胞存储服务</span><span class="product-company">南华生物</span></div>
+</div>
+<div class="form-card" id="form-section">
+<h2>想代理这些产品？</h2>
+<p class="subtitle">扫码添加微信，获取最新代理政策和企业对接机会</p>
+<div style="text-align:center;padding:20px 0;">
+<button onclick="document.getElementById('qrBox').style.display=document.getElementById('qrBox').style.display==='block'?'none':'block'" style="padding:14px 40px;border-radius:10px;background:#c9a84c;color:#0a0f1a;font-size:16px;font-weight:700;border:none;cursor:pointer;font-family:inherit;width:100%;">扫码添加微信咨询</button>
+</div>
+<div id="qrBox" style="display:none;text-align:center;padding:20px;background:rgba(201,168,76,0.05);border-radius:12px;border:1px solid rgba(201,168,76,0.2);margin-top:16px;">
+<p style="font-size:16px;font-weight:700;color:#c9a84c;margin-bottom:12px;">长按识别二维码</p>
+<img src="wechat_qr.png" alt="微信二维码" style="max-width:200px;border-radius:8px;border:2px solid rgba(201,168,76,0.3);">
+<p style="font-size:13px;color:#94a3b8;margin-top:12px;">添加时请备注：代理咨询</p>
+</div>
+<div style="text-align:center;margin-top:20px;padding:16px;background:rgba(255,255,255,0.03);border-radius:10px;">
+<p style="font-size:13px;color:#94a3b8;margin-bottom:8px;">或直接拨打电话咨询</p>
+<a href="tel:18120871887" style="color:#c9a84c;text-decoration:none;font-size:20px;font-weight:700;">18120871887</a>
+</div>
+</div><div class="success-msg" id="success-msg">
+<div class="success-icon">✅</div>
+<h2>提交成功！</h2>
+<p>平台上线后第一时间通知您</p>
+</div>
+</div>
+<div class="footer">CellAgent — 细胞治疗行业代理商招募平台</div>
+</div>
+
+</body>
+</html>
