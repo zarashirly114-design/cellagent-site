@@ -4,1858 +4,1045 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CellAgent — 细胞代理通</title>
+    <title>CellAgent — 我们在做什么</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #0a0f1a;
             --surface: #111827;
-            --surface-2: #1a2332;
             --accent: #c9a84c;
-            --accent-hover: #dbb960;
-            --accent-dim: rgba(201,168,76,0.15);
+            --accent-light: #dbb960;
             --green: #22c55e;
-            --red: #ef4444;
-            --yellow: #f59e0b;
             --blue: #3b82f6;
+            --red: #ef4444;
+            --purple: #a855f7;
             --text: #f1f5f9;
             --text-muted: #94a3b8;
             --text-dim: #64748b;
             --border: rgba(255,255,255,0.08);
-            --radius: 12px;
-            --shadow: 0 4px 24px rgba(0,0,0,0.3);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
-            font-family: 'Noto Sans SC', sans-serif;
+            font-family: 'Noto Sans SC', -apple-system, sans-serif;
             background: var(--bg);
             color: var(--text);
-            line-height: 1.6;
+            line-height: 1.8;
             overflow-x: hidden;
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background:
-                radial-gradient(ellipse at 15% 20%, rgba(201,168,76,0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 85% 80%, rgba(59,130,246,0.04) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* ===== NAV ===== */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            background: rgba(10,15,26,0.85);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            padding: 0 40px;
-            height: 64px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-family: 'Noto Serif SC', serif;
-            font-weight: 900;
-            font-size: 20px;
-            color: var(--accent);
-            cursor: pointer;
-        }
-
-        .nav-logo span {
-            font-family: 'Noto Sans SC', sans-serif;
-            font-weight: 300;
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-left: 4px;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-link {
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 14px;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: all 0.2s;
-            border: none;
-            background: none;
-            font-family: inherit;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            color: var(--text);
-            background: rgba(255,255,255,0.05);
-        }
-
-        .nav-link.active {
-            color: var(--accent);
-        }
-
-        .btn {
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            border: none;
-            font-family: inherit;
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            color: var(--bg);
-        }
-
-        .btn-primary:hover {
-            background: var(--accent-hover);
-            letter-spacing: 0.5px;
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--accent);
-            border: 1px solid var(--accent);
-        }
-
-        .btn-outline:hover {
-            background: var(--accent-dim);
-        }
-
-        .btn-ghost {
-            background: rgba(255,255,255,0.05);
-            color: var(--text-muted);
-            border: 1px solid var(--border);
-        }
-
-        .btn-ghost:hover {
-            color: var(--text);
-            border-color: rgba(255,255,255,0.15);
-        }
-
-        /* ===== PAGE CONTAINER ===== */
-        .page {
-            display: none;
-            padding-top: 64px;
-            min-height: 100vh;
-            position: relative;
-            z-index: 1;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        .container {
-            max-width: 1200px;
+        .article {
+            max-width: 480px;
             margin: 0 auto;
-            padding: 0 40px;
+            padding: 0;
         }
 
-        /* ===== HOMEPAGE ===== */
-        .hero {
-            padding: 120px 0 80px;
-            text-align: center;
-            position: relative;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            padding: 6px 16px;
-            border-radius: 20px;
-            background: var(--accent-dim);
-            color: var(--accent);
-            font-size: 13px;
-            margin-bottom: 24px;
-            border: 1px solid rgba(201,168,76,0.2);
-        }
-
-        .hero h1 {
-            font-family: 'Noto Serif SC', serif;
-            font-size: 52px;
-            font-weight: 900;
-            line-height: 1.2;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero p {
-            font-size: 18px;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 40px;
-            font-weight: 300;
-        }
-
-        .hero-actions {
+        /* ===== COVER ===== */
+        .cover {
+            min-height: 100vh;
             display: flex;
-            gap: 16px;
+            flex-direction: column;
             justify-content: center;
-        }
-
-        .hero-actions .btn {
-            padding: 14px 32px;
-            font-size: 16px;
-        }
-
-        /* Stats Bar */
-        .stats-bar {
-            display: flex;
-            justify-content: center;
-            gap: 60px;
-            padding: 48px 0;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-family: 'Noto Serif SC', serif;
-            font-size: 42px;
-            font-weight: 900;
-            color: var(--accent);
-        }
-
-        .stat-label {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
-
-        /* Section Headers */
-        .section-header {
-            display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 32px;
-        }
-
-        .section-title {
-            font-family: 'Noto Serif SC', serif;
-            font-size: 28px;
-            font-weight: 700;
-        }
-
-        /* Recruitment Cards */
-        .section {
-            padding: 60px 0;
-        }
-
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .recruit-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 24px;
-            transition: all 0.3s ease;
-            cursor: pointer;
+            text-align: center;
+            padding: 60px 32px;
             position: relative;
             overflow: hidden;
         }
 
-        .recruit-card::before {
+        .cover::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent), transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .recruit-card:hover {
-            border-color: rgba(201,168,76,0.3);
-            transform: translateY(-4px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        }
-
-        .recruit-card:hover::before {
-            opacity: 1;
-        }
-
-        .card-company {
-            font-weight: 700;
-            font-size: 16px;
-            margin-bottom: 8px;
-        }
-
-        .card-tag {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 500;
-            margin-bottom: 12px;
-        }
-
-        .tag-cart { background: rgba(239,68,68,0.15); color: #f87171; }
-        .tag-stem { background: rgba(34,197,94,0.15); color: #4ade80; }
-        .tag-til { background: rgba(59,130,246,0.15); color: #60a5fa; }
-        .tag-nk { background: rgba(168,85,247,0.15); color: #c084fc; }
-
-        .card-product {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-            line-height: 1.5;
-        }
-
-        .card-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 12px;
-            color: var(--text-dim);
-            padding-top: 12px;
-            border-top: 1px solid var(--border);
-        }
-
-        .card-status {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        .status-dot.green { background: var(--green); }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        /* Features */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-
-        .feature-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 32px;
-            transition: all 0.3s;
-        }
-
-        .feature-card:hover {
-            border-color: rgba(201,168,76,0.2);
-        }
-
-        .feature-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        .feature-card h3 {
-            font-size: 18px;
-            margin-bottom: 8px;
-        }
-
-        .feature-card p {
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.7;
-        }
-
-        /* ===== PRODUCT LIBRARY PAGE ===== */
-        .page-header {
-            padding: 40px 0 0;
-        }
-
-        .page-header h1 {
-            font-family: 'Noto Serif SC', serif;
-            font-size: 32px;
-            margin-bottom: 8px;
-        }
-
-        .page-header p {
-            color: var(--text-muted);
-            font-size: 15px;
-        }
-
-        .filter-bar {
-            display: flex;
-            gap: 12px;
-            padding: 24px 0;
-            flex-wrap: wrap;
-        }
-
-        .filter-select {
-            padding: 10px 16px;
-            border-radius: 8px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            color: var(--text);
-            font-size: 14px;
-            font-family: inherit;
-            cursor: pointer;
-            appearance: none;
-            padding-right: 36px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-        }
-
-        .filter-select option {
-            background: var(--surface);
-        }
-
-        .search-box {
-            flex: 1;
-            min-width: 200px;
-            padding: 10px 16px;
-            border-radius: 8px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            color: var(--text);
-            font-size: 14px;
-            font-family: inherit;
-        }
-
-        .search-box::placeholder {
-            color: var(--text-dim);
-        }
-
-        .company-list {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            padding-bottom: 60px;
-        }
-
-        .company-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 24px 28px;
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .company-card:hover {
-            border-color: rgba(201,168,76,0.3);
-            transform: translateX(4px);
-        }
-
-        .company-avatar {
-            width: 56px;
-            height: 56px;
-            border-radius: 12px;
-            background: var(--accent-dim);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            flex-shrink: 0;
-            border: 1px solid rgba(201,168,76,0.2);
-        }
-
-        .company-info {
-            flex: 1;
-        }
-
-        .company-name {
-            font-size: 17px;
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-
-        .company-desc {
-            font-size: 13px;
-            color: var(--text-muted);
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .company-desc span {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .company-tags {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .company-actions {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 8px;
-        }
-
-        .region-tag {
-            padding: 4px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            background: rgba(59,130,246,0.12);
-            color: #60a5fa;
-        }
-
-        .recruit-badge {
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        .recruit-badge.open {
-            background: rgba(34,197,94,0.12);
-            color: #4ade80;
-            border: 1px solid rgba(34,197,94,0.2);
-        }
-
-        /* ===== DETAIL PAGE ===== */
-        .detail-header {
-            padding: 48px 0 32px;
-            display: flex;
-            gap: 32px;
-            align-items: flex-start;
-        }
-
-        .detail-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 16px;
-            background: var(--accent-dim);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            border: 1px solid rgba(201,168,76,0.2);
-            flex-shrink: 0;
-        }
-
-        .detail-info h1 {
-            font-family: 'Noto Serif SC', serif;
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
-
-        .detail-meta {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .detail-body {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 24px;
-            padding-bottom: 80px;
-        }
-
-        .detail-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 28px;
-        }
-
-        .detail-card h2 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .info-row {
-            display: flex;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border);
-            font-size: 14px;
-        }
-
-        .info-row:last-child {
-            border-bottom: none;
-        }
-
-        .info-label {
-            width: 100px;
-            color: var(--text-muted);
-            flex-shrink: 0;
-        }
-
-        .info-value {
-            flex: 1;
-        }
-
-        .apply-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 28px;
-            position: sticky;
-            top: 100px;
-        }
-
-        .apply-card h2 {
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
-
-        .apply-card .btn {
-            width: 100%;
-            padding: 14px;
-            font-size: 16px;
-            margin-top: 16px;
-        }
-
-        .apply-info {
-            margin-top: 16px;
-        }
-
-        .apply-info p {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* ===== LOGIN MODAL ===== */
-        .modal-overlay {
-            display: none;
-            position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(8px);
-            z-index: 200;
-            align-items: center;
-            justify-content: center;
+            background:
+                radial-gradient(ellipse at 30% 20%, rgba(201,168,76,0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(59,130,246,0.08) 0%, transparent 50%);
         }
 
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 40px;
-            width: 420px;
-            max-width: 90vw;
+        .cover-logo {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--accent);
             position: relative;
+            z-index: 1;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.3s;
         }
 
-        .modal h2 {
+        .cover-sub {
+            font-size: 14px;
+            color: var(--text-muted);
+            letter-spacing: 4px;
+            margin-top: 8px;
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.5s;
+        }
+
+        .cover-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 48px;
+            line-height: 1.5;
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.7s;
+        }
+
+        .cover-date {
+            font-size: 13px;
+            color: var(--text-dim);
+            margin-top: 32px;
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.9s;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 1.2s, bounce 2s ease infinite 2s;
+        }
+
+        .scroll-hint span {
+            display: block;
+            width: 24px;
+            height: 24px;
+            border-right: 2px solid var(--accent);
+            border-bottom: 2px solid var(--accent);
+            transform: rotate(45deg);
+            opacity: 0.5;
+        }
+
+        /* ===== SECTION ===== */
+        .section {
+            padding: 60px 32px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .section.visible {
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        .section-label {
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
             font-family: 'Noto Serif SC', serif;
             font-size: 24px;
+            font-weight: 700;
             margin-bottom: 8px;
         }
 
-        .modal p {
-            color: var(--text-muted);
+        .section-desc {
             font-size: 14px;
-            margin-bottom: 28px;
+            color: var(--text-muted);
+            margin-bottom: 32px;
         }
 
-        .modal-close {
+        .divider {
+            width: 40px;
+            height: 3px;
+            background: var(--accent);
+            margin: 40px auto;
+        }
+
+        /* ===== TIMELINE ===== */
+        .timeline {
+            position: relative;
+            padding-left: 32px;
+        }
+
+        .timeline::before {
+            content: '';
             position: absolute;
-            top: 16px;
-            right: 16px;
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            border: none;
-            background: rgba(255,255,255,0.05);
-            color: var(--text-muted);
-            cursor: pointer;
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent), var(--green), var(--blue));
         }
 
-        .form-group {
-            margin-bottom: 16px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 12px 16px;
-            border-radius: 8px;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            color: var(--text);
-            font-size: 14px;
-            font-family: inherit;
-            transition: border-color 0.2s;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-
-        .form-row {
-            display: flex;
-            gap: 12px;
-        }
-
-        .form-row .form-group {
-            flex: 1;
-        }
-
-        .user-type-selector {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .user-type-option {
-            flex: 1;
-            padding: 16px;
-            border-radius: 10px;
-            border: 2px solid var(--border);
-            background: transparent;
-            color: var(--text-muted);
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.2s;
-            font-family: inherit;
-        }
-
-        .user-type-option:hover {
-            border-color: rgba(201,168,76,0.3);
-        }
-
-        .user-type-option.selected {
-            border-color: var(--accent);
-            background: var(--accent-dim);
-            color: var(--accent);
-        }
-
-        .user-type-option .type-icon {
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
-
-        .user-type-option .type-label {
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .user-type-option .type-desc {
-            font-size: 11px;
-            margin-top: 4px;
-            opacity: 0.7;
-        }
-
-        /* ===== DASHBOARD ===== */
-        .dash-layout {
-            display: grid;
-            grid-template-columns: 220px 1fr;
-            min-height: calc(100vh - 64px);
-        }
-
-        .dash-sidebar {
+        .timeline-item {
+            position: relative;
+            margin-bottom: 32px;
+            padding: 20px;
             background: var(--surface);
-            border-right: 1px solid var(--border);
-            padding: 24px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
         }
 
-        .dash-user {
-            padding: 16px;
-            margin-bottom: 24px;
-            text-align: center;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 24px;
-        }
-
-        .dash-user-avatar {
-            width: 56px;
-            height: 56px;
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -28px;
+            top: 24px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            background: var(--accent-dim);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin: 0 auto 12px;
-            border: 2px solid var(--accent);
+            background: var(--accent);
+            border: 3px solid var(--bg);
         }
 
-        .dash-user h3 {
-            font-size: 15px;
+        .timeline-item.done::before {
+            background: var(--green);
+        }
+
+        .timeline-time {
+            font-size: 12px;
+            color: var(--accent);
             margin-bottom: 4px;
         }
 
-        .dash-user p {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .dash-menu-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 16px;
-            border-radius: 8px;
-            font-size: 14px;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: all 0.2s;
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
-            font-family: inherit;
-        }
-
-        .dash-menu-item:hover {
-            background: rgba(255,255,255,0.05);
-            color: var(--text);
-        }
-
-        .dash-menu-item.active {
-            background: var(--accent-dim);
-            color: var(--accent);
-        }
-
-        .dash-menu-item .menu-icon {
-            font-size: 18px;
-            width: 24px;
-            text-align: center;
-        }
-
-        .dash-content {
-            padding: 32px 40px;
-        }
-
-        .dash-content h1 {
-            font-family: 'Noto Serif SC', serif;
-            font-size: 24px;
+        .timeline-title {
+            font-size: 16px;
+            font-weight: 700;
             margin-bottom: 8px;
         }
 
-        .dash-content > p {
+        .timeline-desc {
+            font-size: 13px;
             color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 32px;
         }
 
-        /* Stat Cards */
-        .stat-cards {
+        /* ===== STAT CARDS ===== */
+        .stat-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            margin-bottom: 32px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
         }
 
         .stat-card {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 20px;
+            border-radius: 12px;
+            padding: 20px 12px;
+            text-align: center;
         }
 
-        .stat-card-label {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-        }
-
-        .stat-card-value {
+        .stat-num {
             font-family: 'Noto Serif SC', serif;
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 900;
+            color: var(--accent);
+            line-height: 1;
         }
 
-        .stat-card-change {
-            font-size: 12px;
-            margin-top: 4px;
-        }
+        .stat-num.green { color: var(--green); }
+        .stat-num.blue { color: var(--blue); }
+        .stat-num.purple { color: var(--purple); }
 
-        .stat-card-change.up { color: var(--green); }
-        .stat-card-change.down { color: var(--red); }
-
-        /* Table */
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .data-table thead th {
-            text-align: left;
-            padding: 12px 16px;
-            font-size: 13px;
+        .stat-label {
+            font-size: 11px;
             color: var(--text-muted);
-            font-weight: 500;
-            border-bottom: 1px solid var(--border);
+            margin-top: 8px;
         }
 
-        .data-table tbody td {
-            padding: 14px 16px;
-            font-size: 14px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .data-table tbody tr {
-            transition: background 0.2s;
-        }
-
-        .data-table tbody tr:hover {
-            background: rgba(255,255,255,0.02);
-        }
-
-        .status-badge {
-            display: inline-flex;
+        /* ===== PRODUCT LIST ===== */
+        .product-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
             align-items: center;
-            gap: 6px;
-            padding: 4px 12px;
-            border-radius: 6px;
-            font-size: 12px;
+            gap: 12px;
+        }
+
+        .product-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .tag-cart { background: rgba(239,68,68,0.15); color: #f87171; }
+        .tag-stem { background: rgba(34,197,94,0.15); color: #4ade80; }
+        .tag-til { background: rgba(59,130,246,0.15); color: #60a5fa; }
+        .tag-store { background: rgba(168,85,247,0.15); color: #c084fc; }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-name {
+            font-size: 14px;
             font-weight: 500;
         }
 
-        .status-badge.pending {
-            background: rgba(245,158,11,0.12);
-            color: var(--yellow);
+        .product-company {
+            font-size: 12px;
+            color: var(--text-dim);
         }
 
-        .status-badge.accepted {
-            background: rgba(34,197,94,0.12);
+        /* ===== CHECK LIST ===== */
+        .check-list {
+            list-style: none;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .check-item:last-child { border-bottom: none; }
+
+        .check-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .check-icon.done { background: rgba(34,197,94,0.15); color: var(--green); }
+        .check-icon.pending { background: rgba(245,158,11,0.15); color: #f59e0b; }
+
+        .check-text {
+            font-size: 14px;
+        }
+
+        .check-sub {
+            font-size: 12px;
+            color: var(--text-dim);
+            margin-top: 2px;
+        }
+
+        /* ===== HIRING EVIDENCE ===== */
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .evidence-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .evidence-company {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .evidence-job {
+            font-size: 12px;
             color: var(--green);
         }
 
-        .status-badge.rejected {
-            background: rgba(239,68,68,0.12);
-            color: var(--red);
+        .evidence-source {
+            font-size: 11px;
+            color: var(--text-dim);
+            margin-top: 4px;
         }
 
-        .status-badge .badge-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: currentColor;
-        }
-
-        .table-actions {
+        /* ===== NEXT STEPS ===== */
+        .step-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
             display: flex;
-            gap: 8px;
+            gap: 16px;
+            align-items: flex-start;
         }
 
-        .btn-sm {
-            padding: 6px 12px;
-            font-size: 12px;
-            border-radius: 6px;
+        .step-num {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .step-content p {
+            font-size: 13px;
+            color: var(--text-muted);
         }
 
         /* ===== FOOTER ===== */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 40px 0;
+        .footer {
             text-align: center;
-            color: var(--text-dim);
+            padding: 60px 32px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-logo {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .footer-text {
             font-size: 13px;
+            color: var(--text-dim);
+            margin-bottom: 16px;
+        }
+
+        .footer-cta {
+            display: inline-block;
+            padding: 12px 32px;
+            background: var(--accent);
+            color: var(--bg);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        /* ===== PROGRESS BAR ===== */
+        .progress-section {
+            margin-bottom: 24px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            width: 0;
+            transition: width 1.5s ease;
+        }
+
+        .progress-fill.visible {
+            width: var(--progress);
         }
 
         /* ===== ANIMATIONS ===== */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeIn 0.6s ease forwards;
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .fade-in:nth-child(2) { animation-delay: 0.1s; }
-        .fade-in:nth-child(3) { animation-delay: 0.2s; }
-        .fade-in:nth-child(4) { animation-delay: 0.3s; }
-        .fade-in:nth-child(5) { animation-delay: 0.4s; }
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
 
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        @keyframes countUp {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        .stagger-5 { animation-delay: 0.5s; }
+        .stagger-6 { animation-delay: 0.6s; }
+        .stagger-7 { animation-delay: 0.7s; }
+        .stagger-8 { animation-delay: 0.8s; }
+
+        /* ===== PULL QUOTE ===== */
+        .pull-quote {
+            border-left: 3px solid var(--accent);
+            padding: 16px 20px;
+            margin: 24px 0;
+            background: rgba(201,168,76,0.05);
+            border-radius: 0 8px 8px 0;
+            font-size: 15px;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* ===== SCREENSHOT FRAME ===== */
+        .screenshot-frame {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin: 24px 0;
+        }
+
+        .screenshot-header {
+            background: rgba(255,255,255,0.03);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #f59e0b; }
+        .dot-green { background: #22c55e; }
+
+        .screenshot-body {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .screenshot-body .mock-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .screenshot-body .mock-sub {
+            font-size: 12px;
+            color: var(--text-dim);
+            margin-bottom: 16px;
+        }
+
+        .mock-stats {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .mock-stat {
+            flex: 1;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            padding: 12px 8px;
+            text-align: center;
+        }
+
+        .mock-stat-num {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--accent);
+        }
+
+        .mock-stat-label {
+            font-size: 10px;
+            color: var(--text-dim);
+        }
+
+        .mock-input {
+            width: 100%;
+            padding: 10px 14px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-dim);
+            font-size: 13px;
+            text-align: left;
+            margin-bottom: 8px;
+        }
+
+        .mock-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--accent);
+            color: var(--bg);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            border: none;
         }
 
         /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            nav { padding: 0 20px; }
-            .container { padding: 0 20px; }
-            .hero h1 { font-size: 32px; }
-            .card-grid { grid-template-columns: 1fr; }
-            .features-grid { grid-template-columns: 1fr; }
-            .stats-bar { gap: 30px; flex-wrap: wrap; }
-            .stat-number { font-size: 28px; }
-            .detail-body { grid-template-columns: 1fr; }
-            .dash-layout { grid-template-columns: 1fr; }
-            .dash-sidebar { display: none; }
-            .stat-cards { grid-template-columns: repeat(2, 1fr); }
-            .company-card { flex-direction: column; align-items: flex-start; }
-            .company-actions { align-items: flex-start; flex-direction: row; }
-            .hero-actions { flex-direction: column; align-items: center; }
-            .nav-links { display: none; }
+        @media (min-width: 481px) {
+            .article { max-width: 480px; }
         }
     </style>
 </head>
 <body>
+<div class="article">
 
-<!-- ===== NAVIGATION ===== -->
-<nav>
-    <div class="nav-logo" onclick="showPage('home')">
-        CellAgent <span>细胞代理通</span>
-    </div>
-    <div class="nav-links">
-        <button class="nav-link active" data-page="home" onclick="showPage('home')">首页</button>
-        <button class="nav-link" data-page="products" onclick="showPage('products')">产品库</button>
-        <button class="nav-link" data-page="detail" onclick="showPage('detail')">企业详情</button>
-        <button class="nav-link" data-page="dash-company" onclick="showPage('dash-company')">企业后台</button>
-        <button class="nav-link" data-page="dash-agent" onclick="showPage('dash-agent')">代理商后台</button>
-        <button class="btn btn-outline" onclick="openModal('login')">登录</button>
-        <button class="btn btn-primary" onclick="openModal('register')">注册</button>
-    </div>
-</nav>
-
-<!-- ===== PAGE: HOME ===== -->
-<div id="page-home" class="page active">
-    <!-- Hero -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-badge">中国首个细胞治疗行业代理商招募平台</div>
-            <h1>企业找代理商<br>代理商找产品</h1>
-            <p>连接细胞治疗企业与医药代理商，打通行业最后一公里</p>
-            <div class="hero-actions">
-                <button class="btn btn-primary" onclick="openModal('register')">我是企业，发布招商</button>
-                <button class="btn btn-outline" onclick="showPage('products')">我是代理商，找产品</button>
-            </div>
+    <!-- ===== COVER ===== -->
+    <div class="cover">
+        <div class="cover-logo">CellAgent</div>
+        <div class="cover-sub">细 胞 代 理 通</div>
+        <div class="cover-title">
+            我们用一天时间<br>
+            验证了一个商业想法
         </div>
-    </section>
+        <div class="cover-date">2026年5月12日 · 项目日志 #001</div>
+        <div class="scroll-hint"><span></span></div>
+    </div>
 
-    <!-- Stats -->
-    <section class="container">
-        <div class="stats-bar">
-            <div class="stat-item fade-in">
-                <div class="stat-number">67</div>
-                <div class="stat-label">细胞治疗企业</div>
-            </div>
-            <div class="stat-item fade-in">
-                <div class="stat-number">8</div>
+    <!-- ===== PROBLEM ===== -->
+    <div class="section" id="s1">
+        <div class="section-label">痛点洞察</div>
+        <div class="section-title">一个真实存在的问题</div>
+        <div class="section-desc">细胞治疗行业正在爆发，但企业与代理商之间存在严重的信息不对称。</div>
+
+        <div class="pull-quote">
+            细胞治疗企业有产品，但不知道去哪里找代理商。<br>
+            代理商想做细胞治疗，但不知道卖什么产品。
+        </div>
+
+        <div class="stat-grid" style="margin-top:24px;">
+            <div class="stat-card">
+                <div class="stat-num">8</div>
                 <div class="stat-label">已获批产品</div>
             </div>
-            <div class="stat-item fade-in">
-                <div class="stat-number">42</div>
-                <div class="stat-label">在研管线</div>
+            <div class="stat-card">
+                <div class="stat-num green">67</div>
+                <div class="stat-label">入库企业</div>
             </div>
-            <div class="stat-item fade-in">
-                <div class="stat-number">15</div>
-                <div class="stat-label">招商中</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Latest Recruitments -->
-    <section class="section container">
-        <div class="section-header">
-            <h2 class="section-title">最新招商动态</h2>
-            <button class="btn btn-ghost btn-sm" onclick="showPage('products')">查看全部 →</button>
-        </div>
-        <div class="card-grid">
-            <div class="recruit-card fade-in" onclick="showPage('detail')">
-                <div class="card-company">复星凯特</div>
-                <span class="card-tag tag-cart">CAR-T</span>
-                <div class="card-product">阿基仑赛注射液（奕凯达）<br>招全国代理商</div>
-                <div class="card-meta">
-                    <span>3天前</span>
-                    <div class="card-status">
-                        <span class="status-dot green"></span>
-                        招商中
-                    </div>
-                </div>
-            </div>
-            <div class="recruit-card fade-in" onclick="showPage('detail')">
-                <div class="card-company">药明巨诺</div>
-                <span class="card-tag tag-cart">CAR-T</span>
-                <div class="card-product">瑞基奥仑赛注射液（倍诺达）<br>招华东区域代理</div>
-                <div class="card-meta">
-                    <span>5天前</span>
-                    <div class="card-status">
-                        <span class="status-dot green"></span>
-                        招商中
-                    </div>
-                </div>
-            </div>
-            <div class="recruit-card fade-in" onclick="showPage('detail')">
-                <div class="card-company">科济药业</div>
-                <span class="card-tag tag-cart">CAR-T</span>
-                <div class="card-product">伊基奥仑赛注射液（福可苏）<br>招华南区域代理</div>
-                <div class="card-meta">
-                    <span>1周前</span>
-                    <div class="card-status">
-                        <span class="status-dot green"></span>
-                        招商中
-                    </div>
-                </div>
-            </div>
-            <div class="recruit-card fade-in" onclick="showPage('detail')">
-                <div class="card-company">铂生卓越生物</div>
-                <span class="card-tag tag-stem">干细胞</span>
-                <div class="card-product">艾米迈托赛注射液（睿铂生）<br>招全国代理商</div>
-                <div class="card-meta">
-                    <span>2周前</span>
-                    <div class="card-status">
-                        <span class="status-dot green"></span>
-                        招商中
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features -->
-    <section class="section container">
-        <div class="section-header">
-            <h2 class="section-title">平台价值</h2>
-        </div>
-        <div class="features-grid">
-            <div class="feature-card fade-in">
-                <div class="feature-icon" style="background:rgba(201,168,76,0.12);color:var(--accent);">🏢</div>
-                <h3>企业发布招商</h3>
-                <p>一键发布招商信息，设置代理要求，精准匹配有实力的医药代理商</p>
-            </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon" style="background:rgba(34,197,94,0.12);color:#4ade80;">🔍</div>
-                <h3>代理商找产品</h3>
-                <p>浏览全行业细胞治疗产品，按类型、区域、阶段筛选，找到最适合的代理机会</p>
-            </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon" style="background:rgba(59,130,246,0.12);color:#60a5fa;">🤝</div>
-                <h3>智能撮合</h3>
-                <p>基于区域、渠道、资质自动匹配，让企业与代理商高效对接</p>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>CellAgent — 细胞治疗行业代理商招募平台 | 让好产品找到好渠道</p>
-        </div>
-    </footer>
-</div>
-
-<!-- ===== PAGE: PRODUCTS ===== -->
-<div id="page-products" class="page">
-    <div class="container">
-        <div class="page-header">
-            <h1>产品库</h1>
-            <p>浏览细胞治疗企业及其可代理产品</p>
-        </div>
-
-        <div class="filter-bar">
-            <input type="text" class="search-box" placeholder="搜索企业名称或产品...">
-            <select class="filter-select">
-                <option>产品类型：全部</option>
-                <option>CAR-T</option>
-                <option>干细胞</option>
-                <option>TIL</option>
-                <option>NK细胞</option>
-                <option>基因治疗</option>
-            </select>
-            <select class="filter-select">
-                <option>所在地区：全部</option>
-                <option>上海</option>
-                <option>北京</option>
-                <option>广东</option>
-                <option>江苏</option>
-                <option>浙江</option>
-                <option>湖北</option>
-            </select>
-            <select class="filter-select">
-                <option>招商状态：全部</option>
-                <option>招商中</option>
-                <option>即将招商</option>
-                <option>已完成</option>
-            </select>
-        </div>
-
-        <div class="company-list">
-            <div class="company-card" onclick="showPage('detail')">
-                <div class="company-avatar">复</div>
-                <div class="company-info">
-                    <div class="company-name">复星凯特生物科技有限公司</div>
-                    <div class="company-desc">
-                        <span>📍 上海</span>
-                        <span>💊 阿基仑赛注射液（奕凯达）</span>
-                        <span>📅 2021年获批</span>
-                    </div>
-                    <div class="company-tags" style="margin-top:8px;">
-                        <span class="card-tag tag-cart">CAR-T</span>
-                    </div>
-                </div>
-                <div class="company-actions">
-                    <span class="region-tag">上海</span>
-                    <span class="recruit-badge open">招商中</span>
-                    <button class="btn btn-primary btn-sm">申请代理</button>
-                </div>
-            </div>
-
-            <div class="company-card" onclick="showPage('detail')">
-                <div class="company-avatar">药</div>
-                <div class="company-info">
-                    <div class="company-name">药明巨诺生物科技有限公司</div>
-                    <div class="company-desc">
-                        <span>📍 上海</span>
-                        <span>💊 瑞基奥仑赛注射液（倍诺达）</span>
-                        <span>📅 2021年获批</span>
-                    </div>
-                    <div class="company-tags" style="margin-top:8px;">
-                        <span class="card-tag tag-cart">CAR-T</span>
-                    </div>
-                </div>
-                <div class="company-actions">
-                    <span class="region-tag">上海</span>
-                    <span class="recruit-badge open">招商中</span>
-                    <button class="btn btn-primary btn-sm">申请代理</button>
-                </div>
-            </div>
-
-            <div class="company-card" onclick="showPage('detail')">
-                <div class="company-avatar">科</div>
-                <div class="company-info">
-                    <div class="company-name">科济药业（上海）有限公司</div>
-                    <div class="company-desc">
-                        <span>📍 上海</span>
-                        <span>💊 伊基奥仑赛注射液（福可苏）</span>
-                        <span>📅 2023年获批</span>
-                    </div>
-                    <div class="company-tags" style="margin-top:8px;">
-                        <span class="card-tag tag-cart">CAR-T</span>
-                    </div>
-                </div>
-                <div class="company-actions">
-                    <span class="region-tag">上海</span>
-                    <span class="recruit-badge open">招商中</span>
-                    <button class="btn btn-primary btn-sm">申请代理</button>
-                </div>
-            </div>
-
-            <div class="company-card" onclick="showPage('detail')">
-                <div class="company-avatar">合</div>
-                <div class="company-info">
-                    <div class="company-name">合源生物科技（天津）有限公司</div>
-                    <div class="company-desc">
-                        <span>📍 天津</span>
-                        <span>💊 纳基奥仑赛注射液（源瑞达）</span>
-                        <span>📅 2023年获批</span>
-                    </div>
-                    <div class="company-tags" style="margin-top:8px;">
-                        <span class="card-tag tag-cart">CAR-T</span>
-                    </div>
-                </div>
-                <div class="company-actions">
-                    <span class="region-tag">天津</span>
-                    <span class="recruit-badge open">招商中</span>
-                    <button class="btn btn-primary btn-sm">申请代理</button>
-                </div>
-            </div>
-
-            <div class="company-card" onclick="showPage('detail')">
-                <div class="company-avatar">铂</div>
-                <div class="company-info">
-                    <div class="company-name">铂生卓越生物科技股份有限公司</div>
-                    <div class="company-desc">
-                        <span>📍 上海</span>
-                        <span>💊 艾米迈托赛注射液（睿铂生）</span>
-                        <span>📅 2025年获批</span>
-                    </div>
-                    <div class="company-tags" style="margin-top:8px;">
-                        <span class="card-tag tag-stem">干细胞</span>
-                    </div>
-                </div>
-                <div class="company-actions">
-                    <span class="region-tag">上海</span>
-                    <span class="recruit-badge open">招商中</span>
-                    <button class="btn btn-primary btn-sm">申请代理</button>
-                </div>
-            </div>
-
-            <div class="company-card" onclick="showPage('detail')">
-                <div class="company-avatar">传</div>
-                <div class="company-info">
-                    <div class="company-name">传奇生物科技股份有限公司</div>
-                    <div class="company-desc">
-                        <span>📍 南京</span>
-                        <span>💊 西达基奥仑赛注射液（卡卫荻）</span>
-                        <span>📅 2024年获批</span>
-                    </div>
-                    <div class="company-tags" style="margin-top:8px;">
-                        <span class="card-tag tag-cart">CAR-T</span>
-                    </div>
-                </div>
-                <div class="company-actions">
-                    <span class="region-tag">江苏</span>
-                    <span class="recruit-badge open">招商中</span>
-                    <button class="btn btn-primary btn-sm">申请代理</button>
-                </div>
-            </div>
-
-            <div class="company-card" onclick="showPage('detail')">
-                <div class="company-avatar">上</div>
-                <div class="company-info">
-                    <div class="company-name">上海君赛生物药业有限公司</div>
-                    <div class="company-desc">
-                        <span>📍 上海</span>
-                        <span>💊 GC203 TIL细胞注射液</span>
-                        <span>📅 2024年获批</span>
-                    </div>
-                    <div class="company-tags" style="margin-top:8px;">
-                        <span class="card-tag tag-til">TIL</span>
-                    </div>
-                </div>
-                <div class="company-actions">
-                    <span class="region-tag">上海</span>
-                    <span class="recruit-badge open">招商中</span>
-                    <button class="btn btn-primary btn-sm">申请代理</button>
-                </div>
-            </div>
-
-            <div class="company-card" onclick="showPage('detail')">
-                <div class="company-avatar">北</div>
-                <div class="company-info">
-                    <div class="company-name">北京永泰生物制品有限公司</div>
-                    <div class="company-desc">
-                        <span>📍 北京</span>
-                        <span>💊 爱可仑赛注射液</span>
-                        <span>📅 在研 — 优先审评中</span>
-                    </div>
-                    <div class="company-tags" style="margin-top:8px;">
-                        <span class="card-tag tag-cart">CAR-T</span>
-                    </div>
-                </div>
-                <div class="company-actions">
-                    <span class="region-tag">北京</span>
-                    <span class="recruit-badge open">即将招商</span>
-                    <button class="btn btn-ghost btn-sm">关注</button>
-                </div>
+            <div class="stat-card">
+                <div class="stat-num blue">0</div>
+                <div class="stat-label">对接平台</div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- ===== PAGE: DETAIL ===== -->
-<div id="page-detail" class="page">
-    <div class="container">
-        <div style="padding-top:24px;">
-            <button class="btn btn-ghost btn-sm" onclick="showPage('products')" style="margin-bottom:8px;">← 返回产品库</button>
-        </div>
+    <div class="divider"></div>
 
-        <div class="detail-header">
-            <div class="detail-avatar">复</div>
-            <div class="detail-info">
-                <h1>复星凯特生物科技有限公司</h1>
-                <div class="detail-meta">
-                    <span class="region-tag">上海</span>
-                    <span class="card-tag tag-cart">CAR-T</span>
-                    <span class="recruit-badge open">🟢 招商中</span>
-                </div>
-                <p style="color:var(--text-muted);font-size:14px;">
-                    复星凯特是复星医药与美国Kite Pharma的合资企业，专注于CAR-T细胞治疗产品的研发、生产和商业化。
-                </p>
-            </div>
-        </div>
+    <!-- ===== TODAY'S JOURNEY ===== -->
+    <div class="section" id="s2">
+        <div class="section-label">今日成果</div>
+        <div class="section-title">一天做了什么</div>
+        <div class="section-desc">从0到1，完成数据采集、产品设计、需求验证全链路。</div>
 
-        <div class="detail-body">
-            <div>
-                <!-- Product Info -->
-                <div class="detail-card" style="margin-bottom:24px;">
-                    <h2>💊 产品信息</h2>
-                    <div class="info-row">
-                        <span class="info-label">产品名称</span>
-                        <span class="info-value">阿基仑赛注射液（奕凯达）</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">产品类型</span>
-                        <span class="info-value">CAR-T细胞治疗产品</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">获批时间</span>
-                        <span class="info-value">2021年6月</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">批准文号</span>
-                        <span class="info-value">国药准字S20210023</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">适应症</span>
-                        <span class="info-value">复发难治性大B细胞淋巴瘤</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">参考价格</span>
-                        <span class="info-value" style="color:var(--accent);font-weight:700;">约120万元/针</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">数据来源</span>
-                        <span class="info-value">NMPA已获批产品 / CDE</span>
-                    </div>
-                </div>
-
-                <!-- Agent Requirements -->
-                <div class="detail-card">
-                    <h2>📋 代理商要求</h2>
-                    <div class="info-row">
-                        <span class="info-label">招商区域</span>
-                        <span class="info-value">全国</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">渠道要求</span>
-                        <span class="info-value">有肿瘤科/血液科三甲医院资源</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">销售能力</span>
-                        <span class="info-value">年药品销售额500万以上</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">物流要求</span>
-                        <span class="info-value">有冷链运输能力</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">行业经验</span>
-                        <span class="info-value">了解细胞治疗行业者优先</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">佣金模式</span>
-                        <span class="info-value" style="color:var(--accent);">面议（根据区域和销量）</span>
-                    </div>
-                </div>
+        <div class="timeline">
+            <div class="timeline-item done">
+                <div class="timeline-time">上午 · 数据采集</div>
+                <div class="timeline-title">Agent 0 自动化采集企业数据</div>
+                <div class="timeline-desc">从CDE、NMPA、卫健委、药监局等多个数据源，自动化采集了67家细胞治疗企业信息，覆盖已获批产品、在研管线、细胞存储机构等。</div>
             </div>
 
-            <!-- Apply Card -->
-            <div>
-                <div class="apply-card">
-                    <h2>申请成为代理商</h2>
-                    <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">
-                        提交申请后，企业将在3个工作日内审核
-                    </p>
-                    <div class="apply-info">
-                        <p>✅ 已有 12 位代理商申请</p>
-                        <p>✅ 3 位已通过审核</p>
-                        <p>⏱️ 平均审核时间：2天</p>
-                    </div>
-                    <button class="btn btn-primary" onclick="openModal('register')">立即申请代理</button>
-                    <button class="btn btn-ghost" style="width:100%;margin-top:8px;">收藏此产品</button>
-                </div>
+            <div class="timeline-item done">
+                <div class="timeline-time">中午 · 数据合并</div>
+                <div class="timeline-title">多源数据合并去重</div>
+                <div class="timeline-desc">将CDE（60家）、NMPA（8款产品）、卫健委（27家机构）、细胞存储企业（7家）、药监局（8家检测机构）的数据合并去重。</div>
+            </div>
+
+            <div class="timeline-item done">
+                <div class="timeline-time">下午 · 产品设计</div>
+                <div class="timeline-title">PRD文档 + 高保真原型</div>
+                <div class="timeline-desc">定义产品定位为"细胞治疗行业代理商招募平台"，完成用户角色、功能设计、数据结构、变现模型，输出6个页面的高保真原型。</div>
+            </div>
+
+            <div class="timeline-item done">
+                <div class="timeline-time">下午 · 需求验证</div>
+                <div class="timeline-title">供给端验证：企业真的需要渠道</div>
+                <div class="timeline-desc">通过招聘网站验证，7家已获批企业全部有销售/商务岗位在招，其中上海细胞治疗集团直接招"招商经理"，证明企业端需求真实存在。</div>
+            </div>
+
+            <div class="timeline-item done">
+                <div class="timeline-time">晚上 · MVP上线</div>
+                <div class="timeline-title">落地页部署到公网</div>
+                <div class="timeline-desc">完成落地页开发，包含15个可代理产品/服务，部署到公网，支持手机访问和在线注册，配套实时数据后台。</div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- ===== PAGE: COMPANY DASHBOARD ===== -->
-<div id="page-dash-company" class="page">
-    <div class="dash-layout">
-        <div class="dash-sidebar">
-            <div class="dash-user">
-                <div class="dash-user-avatar">复</div>
-                <h3>复星凯特</h3>
-                <p>企业管理员</p>
+    <div class="divider"></div>
+
+    <!-- ===== DATA: SUPPLY SIDE ===== -->
+    <div class="section" id="s3">
+        <div class="section-label">供给端验证</div>
+        <div class="section-title">企业真的在招人卖产品</div>
+        <div class="section-desc">我们调研了所有已获批细胞治疗企业的招聘情况，100%都有销售/商务岗位。</div>
+
+        <div class="evidence-grid">
+            <div class="evidence-card">
+                <div class="evidence-company">复星凯特</div>
+                <div class="evidence-job">销售经理</div>
+                <div class="evidence-source">BOSS直聘 · 猎聘</div>
             </div>
-            <button class="dash-menu-item active"><span class="menu-icon">📊</span> 数据概览</button>
-            <button class="dash-menu-item"><span class="menu-icon">📢</span> 招商管理</button>
-            <button class="dash-menu-item"><span class="menu-icon">📩</span> 申请管理 <span style="background:var(--accent);color:var(--bg);padding:2px 8px;border-radius:10px;font-size:11px;margin-left:auto;">5</span></button>
-            <button class="dash-menu-item"><span class="menu-icon">🏢</span> 企业信息</button>
-            <button class="dash-menu-item"><span class="menu-icon">⚙️</span> 设置</button>
+            <div class="evidence-card">
+                <div class="evidence-company">药明巨诺</div>
+                <div class="evidence-job">商务拓展经理</div>
+                <div class="evidence-source">猎聘 · BOSS直聘</div>
+            </div>
+            <div class="evidence-card">
+                <div class="evidence-company">科济药业</div>
+                <div class="evidence-job">区域销售负责人</div>
+                <div class="evidence-source">前程无忧</div>
+            </div>
+            <div class="evidence-card">
+                <div class="evidence-company">合源生物</div>
+                <div class="evidence-job">商务专员</div>
+                <div class="evidence-source">BOSS直聘</div>
+            </div>
+            <div class="evidence-card">
+                <div class="evidence-company">传奇生物</div>
+                <div class="evidence-job">销售岗位</div>
+                <div class="evidence-source">前程无忧</div>
+            </div>
+            <div class="evidence-card">
+                <div class="evidence-company">铂生卓越</div>
+                <div class="evidence-job">销售岗位</div>
+                <div class="evidence-source">BOSS直聘 · 智联</div>
+            </div>
+            <div class="evidence-card">
+                <div class="evidence-company">上海细胞治疗集团</div>
+                <div class="evidence-job">招商经理</div>
+                <div class="evidence-source">猎聘 · 前程无忧</div>
+            </div>
+            <div class="evidence-card">
+                <div class="evidence-company">君赛生物</div>
+                <div class="evidence-job">销售总监</div>
+                <div class="evidence-source">猎聘</div>
+            </div>
         </div>
-        <div class="dash-content">
-            <h1>数据概览</h1>
-            <p>复星凯特 — 阿基仑赛注射液（奕凯达）招商管理</p>
 
-            <div class="stat-cards">
-                <div class="stat-card">
-                    <div class="stat-card-label">页面浏览</div>
-                    <div class="stat-card-value" style="color:var(--accent);">1,247</div>
-                    <div class="stat-card-change up">↑ 23% 较上周</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-card-label">代理申请</div>
-                    <div class="stat-card-value" style="color:var(--green);">12</div>
-                    <div class="stat-card-change up">↑ 5 本周新增</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-card-label">收藏数</div>
-                    <div class="stat-card-value" style="color:var(--blue);">38</div>
-                    <div class="stat-card-change up">↑ 8 较上周</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-card-label">已通过</div>
-                    <div class="stat-card-value" style="color:var(--yellow);">3</div>
-                    <div class="stat-card-change">待跟进</div>
-                </div>
+        <div class="pull-quote" style="margin-top:24px;">
+            7/7 已获批企业都有销售岗位在招<br>
+            结论：企业需要渠道，需求100%真实
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ===== PRODUCT LIBRARY ===== -->
+    <div class="section" id="s4">
+        <div class="section-label">产品库</div>
+        <div class="section-title">15个可代理产品与服务</div>
+        <div class="section-desc">覆盖已获批药品和细胞存储服务两大类别。</div>
+
+        <p style="font-size:13px;color:var(--accent);margin-bottom:12px;font-weight:500;">已获批药品（8款）</p>
+
+        <div class="product-card">
+            <span class="product-tag tag-cart">CAR-T</span>
+            <div class="product-info">
+                <div class="product-name">奕凯达</div>
+                <div class="product-company">复星凯特 · 2021获批</div>
             </div>
+        </div>
+        <div class="product-card">
+            <span class="product-tag tag-cart">CAR-T</span>
+            <div class="product-info">
+                <div class="product-name">倍诺达</div>
+                <div class="product-company">药明巨诺 · 2021获批</div>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-tag tag-cart">CAR-T</span>
+            <div class="product-info">
+                <div class="product-name">福可苏</div>
+                <div class="product-company">科济药业 · 2023获批</div>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-tag tag-cart">CAR-T</span>
+            <div class="product-info">
+                <div class="product-name">源瑞达</div>
+                <div class="product-company">合源生物 · 2023获批</div>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-tag tag-cart">CAR-T</span>
+            <div class="product-info">
+                <div class="product-name">赛恺泽</div>
+                <div class="product-company">科济药业 · 2024获批</div>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-tag tag-cart">CAR-T</span>
+            <div class="product-info">
+                <div class="product-name">卡卫荻</div>
+                <div class="product-company">传奇生物 · 2024获批</div>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-tag tag-stem">干细胞</span>
+            <div class="product-info">
+                <div class="product-name">睿铂生</div>
+                <div class="product-company">铂生卓越 · 2025获批</div>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-tag tag-til">TIL</span>
+            <div class="product-info">
+                <div class="product-name">GC203 TIL细胞注射液</div>
+                <div class="product-company">君赛生物 · 2024获批</div>
+            </div>
+        </div>
 
-            <div class="detail-card">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-                    <h2 style="margin-bottom:0;padding-bottom:0;border:none;">最新代理申请</h2>
-                    <button class="btn btn-ghost btn-sm">查看全部</button>
-                </div>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>申请人</th>
-                            <th>公司</th>
-                            <th>区域</th>
-                            <th>申请时间</th>
-                            <th>状态</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>张经理</td>
-                            <td>华东医药商业有限公司</td>
-                            <td><span class="region-tag">上海</span></td>
-                            <td>今天 14:30</td>
-                            <td><span class="status-badge pending"><span class="badge-dot"></span>待审核</span></td>
-                            <td class="table-actions">
-                                <button class="btn btn-primary btn-sm">通过</button>
-                                <button class="btn btn-ghost btn-sm">拒绝</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>李总</td>
-                            <td>广州康源药业有限公司</td>
-                            <td><span class="region-tag">广东</span></td>
-                            <td>昨天 10:15</td>
-                            <td><span class="status-badge pending"><span class="badge-dot"></span>待审核</span></td>
-                            <td class="table-actions">
-                                <button class="btn btn-primary btn-sm">通过</button>
-                                <button class="btn btn-ghost btn-sm">拒绝</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>王总监</td>
-                            <td>北京国药控股有限公司</td>
-                            <td><span class="region-tag">北京</span></td>
-                            <td>3天前</td>
-                            <td><span class="status-badge accepted"><span class="badge-dot"></span>已通过</span></td>
-                            <td class="table-actions">
-                                <button class="btn btn-ghost btn-sm">查看</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>赵经理</td>
-                            <td>成都蓉生药业有限公司</td>
-                            <td><span class="region-tag">四川</span></td>
-                            <td>5天前</td>
-                            <td><span class="status-badge rejected"><span class="badge-dot"></span>未通过</span></td>
-                            <td class="table-actions">
-                                <button class="btn btn-ghost btn-sm">查看</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>孙总</td>
-                            <td>山东齐鲁医药有限公司</td>
-                            <td><span class="region-tag">山东</span></td>
-                            <td>1周前</td>
-                            <td><span class="status-badge accepted"><span class="badge-dot"></span>已通过</span></td>
-                            <td class="table-actions">
-                                <button class="btn btn-ghost btn-sm">查看</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        <p style="font-size:13px;color:var(--accent);margin:24px 0 12px;font-weight:500;">细胞存储服务（7家）</p>
+
+        <div class="product-card">
+            <span class="product-tag tag-store">细胞存储</span>
+            <div class="product-info">
+                <div class="product-name">细胞存储服务</div>
+                <div class="product-company">上海细胞治疗集团</div>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-tag tag-store">细胞存储</span>
+            <div class="product-info">
+                <div class="product-name">细胞存储服务</div>
+                <div class="product-company">深圳泽医</div>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-tag tag-store">细胞存储</span>
+            <div class="product-info">
+                <div class="product-name">细胞存储服务</div>
+                <div class="product-company">北科生物</div>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-tag tag-store">细胞存储</span>
+            <div class="product-info">
+                <div class="product-name">细胞存储服务</div>
+                <div class="product-company">中源协和</div>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-tag tag-store">细胞存储</span>
+            <div class="product-info">
+                <div class="product-name">细胞存储服务</div>
+                <div class="product-company">博雅干细胞</div>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-tag tag-store">细胞存储</span>
+            <div class="product-info">
+                <div class="product-name">细胞存储服务</div>
+                <div class="product-company">汉氏联合</div>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-tag tag-store">细胞存储</span>
+            <div class="product-info">
+                <div class="product-name">细胞存储服务</div>
+                <div class="product-company">南华生物</div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- ===== PAGE: AGENT DASHBOARD ===== -->
-<div id="page-dash-agent" class="page">
-    <div class="dash-layout">
-        <div class="dash-sidebar">
-            <div class="dash-user">
-                <div class="dash-user-avatar">华</div>
-                <h3>华东医药商业</h3>
-                <p>张经理</p>
+    <div class="divider"></div>
+
+    <!-- ===== LANDING PAGE PREVIEW ===== -->
+    <div class="section" id="s5">
+        <div class="section-label">产品原型</div>
+        <div class="section-title">落地页已上线</div>
+        <div class="section-desc">完成从0到可访问产品的全流程，支持手机注册和实时数据统计。</div>
+
+        <div class="screenshot-frame">
+            <div class="screenshot-header">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+                <span style="font-size:12px;color:var(--text-dim);margin-left:8px;">CellAgent</span>
             </div>
-            <button class="dash-menu-item active"><span class="menu-icon">🔍</span> 搜索产品</button>
-            <button class="dash-menu-item"><span class="menu-icon">📩</span> 我的申请 <span style="background:var(--accent);color:var(--bg);padding:2px 8px;border-radius:10px;font-size:11px;margin-left:auto;">3</span></button>
-            <button class="dash-menu-item"><span class="menu-icon">⭐</span> 收藏产品</button>
-            <button class="dash-menu-item"><span class="menu-icon">🏢</span> 公司信息</button>
-            <button class="dash-menu-item"><span class="menu-icon">⚙️</span> 设置</button>
-        </div>
-        <div class="dash-content">
-            <h1>我的申请</h1>
-            <p>追踪您提交的代理申请状态</p>
-
-            <div class="stat-cards">
-                <div class="stat-card">
-                    <div class="stat-card-label">总申请数</div>
-                    <div class="stat-card-value" style="color:var(--accent);">3</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-card-label">待审核</div>
-                    <div class="stat-card-value" style="color:var(--yellow);">1</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-card-label">已通过</div>
-                    <div class="stat-card-value" style="color:var(--green);">1</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-card-label">未通过</div>
-                    <div class="stat-card-value" style="color:var(--red);">1</div>
-                </div>
-            </div>
-
-            <div class="detail-card">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-                    <h2 style="margin-bottom:0;padding-bottom:0;border:none;">申请记录</h2>
-                    <button class="btn btn-primary btn-sm" onclick="showPage('products')">+ 申请新产品</button>
-                </div>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>企业</th>
-                            <th>产品</th>
-                            <th>类型</th>
-                            <th>申请时间</th>
-                            <th>状态</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>复星凯特</td>
-                            <td>奕凯达</td>
-                            <td><span class="card-tag tag-cart">CAR-T</span></td>
-                            <td>今天</td>
-                            <td><span class="status-badge pending"><span class="badge-dot"></span>待审核</span></td>
-                            <td><button class="btn btn-ghost btn-sm">查看详情</button></td>
-                        </tr>
-                        <tr>
-                            <td>药明巨诺</td>
-                            <td>倍诺达</td>
-                            <td><span class="card-tag tag-cart">CAR-T</span></td>
-                            <td>3天前</td>
-                            <td><span class="status-badge accepted"><span class="badge-dot"></span>已通过</span></td>
-                            <td>
-                                <button class="btn btn-primary btn-sm">查看联系方式</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>科济药业</td>
-                            <td>福可苏</td>
-                            <td><span class="card-tag tag-cart">CAR-T</span></td>
-                            <td>1周前</td>
-                            <td><span class="status-badge rejected"><span class="badge-dot"></span>未通过</span></td>
-                            <td><button class="btn btn-ghost btn-sm">查看原因</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Accepted contact info -->
-            <div class="detail-card" style="margin-top:24px;border-color:rgba(34,197,94,0.3);">
-                <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-                    <span style="font-size:24px;">✅</span>
-                    <div>
-                        <h2 style="margin-bottom:0;padding-bottom:0;border:none;font-size:16px;">药明巨诺 — 联系方式已解锁</h2>
-                        <p style="color:var(--text-muted);font-size:13px;">您的申请已通过，请尽快联系</p>
+            <div class="screenshot-body">
+                <div class="mock-title">CellAgent</div>
+                <div class="mock-sub">细胞代理通</div>
+                <div class="mock-stats">
+                    <div class="mock-stat">
+                        <div class="mock-stat-num">15</div>
+                        <div class="mock-stat-label">可代理产品</div>
+                    </div>
+                    <div class="mock-stat">
+                        <div class="mock-stat-num">67</div>
+                        <div class="mock-stat-label">入库企业</div>
+                    </div>
+                    <div class="mock-stat">
+                        <div class="mock-stat-num">42</div>
+                        <div class="mock-stat-label">在研管线</div>
                     </div>
                 </div>
-                <div class="info-row">
-                    <span class="info-label">联系人</span>
-                    <span class="info-value">刘总监</span>
+                <div class="mock-input">姓名</div>
+                <div class="mock-input">手机号</div>
+                <div class="mock-btn">提交代理意向</div>
+            </div>
+        </div>
+
+        <div class="pull-quote">
+            手机扫码即可访问<br>
+            提交代理意向后，平台上线第一时间通知
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ===== VALIDATION PROGRESS ===== -->
+    <div class="section" id="s6">
+        <div class="section-label">验证进度</div>
+        <div class="section-title">MVP验证清单</div>
+
+        <ul class="check-list">
+            <li class="check-item">
+                <span class="check-icon done">✓</span>
+                <div>
+                    <div class="check-text">企业数据采集</div>
+                    <div class="check-sub">67家企业，覆盖CDE、NMPA、卫健委、药监局</div>
                 </div>
-                <div class="info-row">
-                    <span class="info-label">电话</span>
-                    <span class="info-value">138-XXXX-8888</span>
+            </li>
+            <li class="check-item">
+                <span class="check-icon done">✓</span>
+                <div>
+                    <div class="check-text">产品定位</div>
+                    <div class="check-sub">CellAgent — 细胞治疗行业代理商招募平台</div>
                 </div>
-                <div class="info-row">
-                    <span class="info-label">微信</span>
-                    <span class="info-value">liu_ymjr_bd</span>
+            </li>
+            <li class="check-item">
+                <span class="check-icon done">✓</span>
+                <div>
+                    <div class="check-text">高保真原型</div>
+                    <div class="check-sub">6个页面，完整交互流程</div>
                 </div>
-                <div class="info-row">
-                    <span class="info-label">邮箱</span>
-                    <span class="info-value">bd@juventas.com</span>
+            </li>
+            <li class="check-item">
+                <span class="check-icon done">✓</span>
+                <div>
+                    <div class="check-text">供给端验证</div>
+                    <div class="check-sub">7/7已获批企业有销售岗位招聘</div>
                 </div>
+            </li>
+            <li class="check-item">
+                <span class="check-icon done">✓</span>
+                <div>
+                    <div class="check-text">落地页上线</div>
+                    <div class="check-sub">已部署公网，支持手机注册</div>
+                </div>
+            </li>
+            <li class="check-item">
+                <span class="check-icon pending">⏳</span>
+                <div>
+                    <div class="check-text">需求端验证</div>
+                    <div class="check-sub">目标：2周内50人注册</div>
+                </div>
+            </li>
+            <li class="check-item">
+                <span class="check-icon pending">⏳</span>
+                <div>
+                    <div class="check-text">企业入驻</div>
+                    <div class="check-sub">目标：3-5家企业确认合作</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ===== NEXT STEPS ===== -->
+    <div class="section" id="s7">
+        <div class="section-label">下一步</div>
+        <div class="section-title">接下来要做的事</div>
+
+        <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-content">
+                <h3>投放落地页</h3>
+                <p>将链接投放到医药代理商微信群、行业论坛，验证代理商端需求</p>
+            </div>
+        </div>
+
+        <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-content">
+                <h3>联系企业入驻</h3>
+                <p>主动联系已获批企业，邀请他们发布招商信息</p>
+            </div>
+        </div>
+
+        <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-content">
+                <h3>开发完整MVP</h3>
+                <p>基于验证结果，开发完整的企业后台和代理商后台</p>
+            </div>
+        </div>
+
+        <div class="step-card">
+            <div class="step-num">4</div>
+            <div class="step-content">
+                <h3>完成第一单撮合</h3>
+                <p>人工服务完成第一单企业与代理商的对接</p>
             </div>
         </div>
     </div>
-</div>
 
-<!-- ===== LOGIN MODAL ===== -->
-<div class="modal-overlay" id="modal-login">
-    <div class="modal">
-        <button class="modal-close" onclick="closeModal('login')">✕</button>
-        <h2>登录 CellAgent</h2>
-        <p>登录后即可发布招商或申请代理</p>
-        <div class="form-group">
-            <label>手机号</label>
-            <input type="tel" class="form-input" placeholder="请输入手机号">
+    <div class="divider"></div>
+
+    <!-- ===== FOOTER ===== -->
+    <div class="footer">
+        <div class="footer-logo">CellAgent</div>
+        <div class="footer-text">细胞治疗行业代理商招募平台</div>
+        <div class="footer-text">让好产品找到好渠道</div>
+        <a class="footer-cta" href="https://repacking-hardened-venue.ngrok-free.dev" target="_blank">访问平台 →</a>
+        <div class="footer-text" style="margin-top:32px;font-size:11px;">
+            项目日志 #001 · 2026年5月12日
         </div>
-        <div class="form-group">
-            <label>密码</label>
-            <input type="password" class="form-input" placeholder="请输入密码">
-        </div>
-        <button class="btn btn-primary" style="width:100%;padding:14px;font-size:16px;margin-top:8px;" onclick="closeModal('login');showPage('dash-company');">登录</button>
-        <p style="text-align:center;margin-top:16px;font-size:13px;">
-            还没有账号？<a href="#" style="color:var(--accent);text-decoration:none;" onclick="closeModal('login');openModal('register');">立即注册</a>
-        </p>
     </div>
-</div>
 
-<!-- ===== REGISTER MODAL ===== -->
-<div class="modal-overlay" id="modal-register">
-    <div class="modal" style="width:480px;">
-        <button class="modal-close" onclick="closeModal('register')">✕</button>
-        <h2>注册 CellAgent</h2>
-        <p>选择您的身份开始使用</p>
-
-        <div class="user-type-selector">
-            <button class="user-type-option selected" onclick="selectUserType(this)">
-                <div class="type-icon">🏢</div>
-                <div class="type-label">我是企业</div>
-                <div class="type-desc">发布招商，找代理商</div>
-            </button>
-            <button class="user-type-option" onclick="selectUserType(this)">
-                <div class="type-icon">🤝</div>
-                <div class="type-label">我是代理商</div>
-                <div class="type-desc">找产品，申请代理</div>
-            </button>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label>手机号</label>
-                <input type="tel" class="form-input" placeholder="请输入手机号">
-            </div>
-            <div class="form-group">
-                <label>验证码</label>
-                <input type="text" class="form-input" placeholder="验证码">
-            </div>
-        </div>
-        <div class="form-group">
-            <label>公司名称</label>
-            <input type="text" class="form-input" placeholder="请输入公司全称">
-        </div>
-        <div class="form-row">
-            <div class="form-group">
-                <label>姓名</label>
-                <input type="text" class="form-input" placeholder="您的姓名">
-            </div>
-            <div class="form-group">
-                <label>职位</label>
-                <input type="text" class="form-input" placeholder="您的职位">
-            </div>
-        </div>
-        <div class="form-group">
-            <label>密码</label>
-            <input type="password" class="form-input" placeholder="设置密码（6位以上）">
-        </div>
-        <button class="btn btn-primary" style="width:100%;padding:14px;font-size:16px;margin-top:8px;" onclick="closeModal('register');showPage('dash-company');">注册并登录</button>
-        <p style="text-align:center;margin-top:16px;font-size:13px;">
-            已有账号？<a href="#" style="color:var(--accent);text-decoration:none;" onclick="closeModal('register');openModal('login');">去登录</a>
-        </p>
-    </div>
 </div>
 
 <script>
-function showPage(pageId) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-' + pageId).classList.add('active');
-    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-    document.querySelectorAll(`.nav-link[data-page="${pageId}"]`).forEach(l => l.classList.add('active'));
-    window.scrollTo(0, 0);
-}
-
-function openModal(type) {
-    document.getElementById('modal-' + type).classList.add('active');
-}
-
-function closeModal(type) {
-    document.getElementById('modal-' + type).classList.remove('active');
-}
-
-function selectUserType(el) {
-    document.querySelectorAll('.user-type-option').forEach(o => o.classList.remove('selected'));
-    el.classList.add('selected');
-}
-
-document.querySelectorAll('.modal-overlay').forEach(overlay => {
-    overlay.addEventListener('click', function(e) {
-        if (e.target === this) {
-            this.classList.remove('active');
-        }
-    });
-});
-
-// Animate on scroll
+// Scroll-based reveal animation
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.style.animationPlayState = 'running';
+            entry.target.classList.add('visible');
+
+            // Animate progress bars
+            entry.target.querySelectorAll('.progress-fill').forEach(bar => {
+                bar.classList.add('visible');
+            });
         }
     });
+}, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -50px 0px'
 });
 
-document.querySelectorAll('.fade-in').forEach(el => {
-    observer.observe(el);
+document.querySelectorAll('.section').forEach(section => {
+    observer.observe(section);
 });
 </script>
-
 </body>
 </html>
+EOF
