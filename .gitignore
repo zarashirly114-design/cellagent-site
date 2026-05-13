@@ -7,3 +7,6 @@ data/landing.db
 data/nmpa_companies.csv
 data/update_log.csv
 *.db
+.env
+.vercel
+node_modules/

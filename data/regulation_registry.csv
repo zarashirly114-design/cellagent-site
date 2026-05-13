@@ -1,33 +1,33 @@
-﻿id,regulation_name,issuing_unit,category,regulation_level,publish_date,notice_number,url,page_type,link_status,domain,keyword_extraction_status,monitor_frequency,parse_status,last_check_time,content_hash,remarks
+id,regulation_name,issuing_unit,category,regulation_level,publish_date,notice_number,url,page_type,link_status,domain,keyword_extraction_status,monitor_frequency,parse_status,last_check_time,content_hash,remarks
 CDE-01,细胞治疗药品药学变更研究与评价技术指导原则（试行）,CDE药审中心,CDE技术指导原则,技术指导原则,2026年1月27日,2026年第13号,https://www.cde.org.cn/main/news/viewInfoCommon/d2095373f1f57506795743870ca09c98,HTML,已确认,细胞制备,待提取,每周,待解析,,,用户确认
-CDE-02,免疫细胞治疗产品临床试验技术指导原则（试行）,CDE药审中心,CDE技术指导原则,技术指导原则,2021年2月9日,2021年第14号,https://www.cde.org.cn/main/news/viewInfoCommon/1936d1c9006ccce2251702221f063b1c,HTML,已确认,临床研究,已提取,每周,已解析,2026-05-11 15:29:20,,用户确认
-CDE-03,免疫细胞治疗产品药学研究与评价技术指导原则（试行）,CDE药审中心,CDE技术指导原则,技术指导原则,2022年5月26日,2022年第30号,https://www.cde.org.cn/main/news/viewInfoCommon/0584963a84e01bb4d83022f559d22144,HTML,已确认,细胞制备,已提取,每周,已解析,2026-05-11 15:29:20,,用户确认
-CDE-04,人源干细胞产品药学研究与评价技术指导原则（试行）,CDE药审中心,CDE技术指导原则,技术指导原则,2023年4月25日,2023年第33号,https://www.cde.org.cn/main/news/viewInfoCommon/1dfacaa7804aca84d648edb83b10c40b,HTML,已确认,细胞制备,已提取,每周,已解析,2026-05-11 15:29:20,,用户确认
-CDE-05,基因转导与修饰系统药学研究与评价技术指导原则（征求意见稿）,CDE药审中心,CDE技术指导原则,技术指导原则（征求意见稿）,2020年9月30日,,https://www.cde.org.cn/main/news/viewInfoCommon/fb6eec0d50516fb00f2c0657c2e23a59,HTML,已确认,细胞制备,已提取,每周,已解析,2026-05-11 15:29:20,,用户确认
-CDE-06,细胞治疗产品临床药理学研究技术指导原则（试行）,CDE药审中心,CDE技术指导原则,技术指导原则,2024年11月15日,,https://www.cde.org.cn/main/news/viewInfoCommon/6eda537828949a51a4a56e341423f7c3,HTML,已确认,临床研究,已提取,每周,已解析,2026-05-11 15:29:20,,用户确认
-CDE-07,以临床价值为导向的抗肿瘤药物临床研发指导原则,CDE药审中心,CDE技术指导原则,技术指导原则,2021年11月15日,,https://www.cde.org.cn/main/news/viewInfoCommon/ef7bfde96c769308ad080bb7ab2f538e,HTML,已确认,临床研究,已提取,每周,已解析,2026-05-11 15:29:20,,用户确认
-CDE-08,人源性干细胞及其衍生细胞治疗产品临床试验技术指导原则（试行）,CDE药审中心,CDE技术指导原则,技术指导原则,2023年6月21日,,https://www.cde.org.cn/main/news/viewInfoCommon/f82a0fee1e625a1a3834a93cee3836c7,HTML,已确认,临床研究,已提取,每周,已解析,2026-05-11 15:29:20,,用户确认
-NHC-01,脐带血造血干细胞库技术规范（试行）,国家卫健委,卫健委规范,技术规范,2002年,,https://www.nhc.gov.cn/yzygj/c100068/200208/4b9dfefaee0847818ec420431f89d00d.shtml,HTML,已确认,细胞存储,已提取,每两周,已解析,2026-05-11 15:29:20,,用户确认新增
-NHC-02,干细胞临床研究管理办法（试行）,国家卫健委,卫健委规范,部门规章,2015年8月,,https://www.nhc.gov.cn/qjjys/c100016/201508/cd1cb345d65d47dcadefb9c501ca5f2c.shtml,HTML,已确认,临床研究,已提取,每两周,已解析,2026-05-11 15:29:20,,用户确认
-NHC-03,干细胞制剂质量控制及临床前研究指导原则（试行）,国家卫健委,卫健委规范,部门规章,2015年7月31日,,https://www.nhc.gov.cn/wjw/c100175/201508/b8b4a057560d430bae7a1059d3fc6cdd.shtml,HTML,已确认,细胞制备;临床研究,已提取,每两周,已解析,2026-05-11 15:29:20,,用户确认
-NHC-04,体细胞治疗临床研究和转化应用管理办法（试行）（征求意见稿）,国家卫健委,卫健委规范,部门规章（征求意见稿）,2019年3月29日,,https://www.nhc.gov.cn/qjjys/c100015/201903/9ba6eac3684b4ac189f507e2cb408fa1.shtml,HTML,已确认,临床研究,已提取,每两周,已解析,2026-05-11 15:29:20,,用户确认
-NHC-05,生物医学新技术临床转化应用审批工作规范（征求意见稿）,国家卫健委,卫健委规范,审批规范（征求意见稿）,2026年4月19日,,https://www.nhc.gov.cn/wjw/yjzj/202604/b4706d6386b046a5bec75050969e6f7f.shtml,HTML,已确认,临床研究,已提取,每两周,已解析,2026-05-11 15:29:20,,用户确认
-NHC-06,生物医学新技术临床研究和临床转化应用管理条例,国务院,国务院条例,条例,2025年10月,,https://www.nhc.gov.cn/wjw/xwdt/202510/0f476b3eceab4cb0b4601a3ec00971c8.shtml,HTML,已确认,临床研究,已提取,每两周,已解析,2026-05-11 15:29:20,,用户确认
-CFDI-01,细胞治疗产品生产质量管理指南（试行）,CFDI食品药品审核查验中心,CFDI规范,规范性文件,,,https://www.cfdi.org.cn/resource/news/14938.html,HTML,已确认,细胞制备,已提取,每周,已解析,2026-05-11 15:29:20,,用户确认
-CFDI-02,细胞治疗产品生产检查指南,CFDI食品药品审核查验中心,CFDI规范,规范性文件,,,https://www.cfdi.org.cn/cfdi/resource/attachment/ueFile/2025/01/TW9uIEphbiAxMyAxNjoyNjo0NyAyMDI1OTIyNTU=.pdf,PDF,已确认,细胞制备,已提取,每周,已解析,2026-05-11 15:29:20,,用户确认注意为PDF格式
+CDE-02,免疫细胞治疗产品临床试验技术指导原则（试行）,CDE药审中心,CDE技术指导原则,技术指导原则,2021年2月9日,2021年第14号,https://www.cde.org.cn/main/news/viewInfoCommon/1936d1c9006ccce2251702221f063b1c,HTML,已确认,临床研究,待提取,每周,待解析,,,用户确认
+CDE-03,免疫细胞治疗产品药学研究与评价技术指导原则（试行）,CDE药审中心,CDE技术指导原则,技术指导原则,2022年5月26日,2022年第30号,https://www.cde.org.cn/main/news/viewInfoCommon/0584963a84e01bb4d83022f559d22144,HTML,已确认,细胞制备,待提取,每周,待解析,,,用户确认
+CDE-04,人源干细胞产品药学研究与评价技术指导原则（试行）,CDE药审中心,CDE技术指导原则,技术指导原则,2023年4月25日,2023年第33号,https://www.cde.org.cn/main/news/viewInfoCommon/1dfacaa7804aca84d648edb83b10c40b,HTML,已确认,细胞制备,待提取,每周,待解析,,,用户确认
+CDE-05,基因转导与修饰系统药学研究与评价技术指导原则（征求意见稿）,CDE药审中心,CDE技术指导原则,技术指导原则（征求意见稿）,2020年9月30日,,https://www.cde.org.cn/main/news/viewInfoCommon/fb6eec0d50516fb00f2c0657c2e23a59,HTML,已确认,细胞制备,待提取,每周,待解析,,,用户确认
+CDE-06,细胞治疗产品临床药理学研究技术指导原则（试行）,CDE药审中心,CDE技术指导原则,技术指导原则,2024年11月15日,,https://www.cde.org.cn/main/news/viewInfoCommon/6eda537828949a51a4a56e341423f7c3,HTML,已确认,临床研究,待提取,每周,待解析,,,用户确认
+CDE-07,以临床价值为导向的抗肿瘤药物临床研发指导原则,CDE药审中心,CDE技术指导原则,技术指导原则,2021年11月15日,,https://www.cde.org.cn/main/news/viewInfoCommon/ef7bfde96c769308ad080bb7ab2f538e,HTML,已确认,临床研究,待提取,每周,待解析,,,用户确认
+CDE-08,人源性干细胞及其衍生细胞治疗产品临床试验技术指导原则（试行）,CDE药审中心,CDE技术指导原则,技术指导原则,2023年6月21日,,https://www.cde.org.cn/main/news/viewInfoCommon/f82a0fee1e625a1a3834a93cee3836c7,HTML,已确认,临床研究,待提取,每周,待解析,,,用户确认
+NHC-01,脐带血造血干细胞库技术规范（试行）,国家卫健委,卫健委规范,技术规范,2002年,,https://www.nhc.gov.cn/yzygj/c100068/200208/4b9dfefaee0847818ec420431f89d00d.shtml,HTML,已确认,细胞存储,已提取,每两周,已解析,2026/5/11 14:12,,用户确认新增
+NHC-02,干细胞临床研究管理办法（试行）,国家卫健委,卫健委规范,部门规章,2015年8月,,https://www.nhc.gov.cn/qjjys/c100016/201508/cd1cb345d65d47dcadefb9c501ca5f2c.shtml,HTML,已确认,临床研究,已提取,每两周,已解析,2026/5/11 14:12,,用户确认
+NHC-03,干细胞制剂质量控制及临床前研究指导原则（试行）,国家卫健委,卫健委规范,部门规章,2015年7月31日,,https://www.nhc.gov.cn/wjw/c100175/201508/b8b4a057560d430bae7a1059d3fc6cdd.shtml,HTML,已确认,细胞制备;临床研究,已提取,每两周,已解析,2026/5/11 14:12,,用户确认
+NHC-04,体细胞治疗临床研究和转化应用管理办法（试行）（征求意见稿）,国家卫健委,卫健委规范,部门规章（征求意见稿）,2019年3月29日,,https://www.nhc.gov.cn/qjjys/c100015/201903/9ba6eac3684b4ac189f507e2cb408fa1.shtml,HTML,已确认,临床研究,已提取,每两周,已解析,2026/5/11 14:12,,用户确认
+NHC-05,生物医学新技术临床转化应用审批工作规范（征求意见稿）,国家卫健委,卫健委规范,审批规范（征求意见稿）,2026年4月19日,,https://www.nhc.gov.cn/wjw/yjzj/202604/b4706d6386b046a5bec75050969e6f7f.shtml,HTML,已确认,临床研究,已提取,每两周,已解析,2026/5/11 14:12,,用户确认
+NHC-06,生物医学新技术临床研究和临床转化应用管理条例,国务院,国务院条例,条例,2025年10月,,https://www.nhc.gov.cn/wjw/xwdt/202510/0f476b3eceab4cb0b4601a3ec00971c8.shtml,HTML,已确认,临床研究,已提取,每两周,已解析,2026/5/11 14:12,,用户确认
+CFDI-01,细胞治疗产品生产质量管理指南（试行）,CFDI食品药品审核查验中心,CFDI规范,规范性文件,,,https://www.cfdi.org.cn/resource/news/14938.html,HTML,已确认,细胞制备,已提取,每周,已解析,2026/5/11 14:12,,用户确认
+CFDI-02,细胞治疗产品生产检查指南,CFDI食品药品审核查验中心,CFDI规范,规范性文件,,,https://www.cfdi.org.cn/cfdi/resource/attachment/ueFile/2025/01/TW9uIEphbiAxMyAxNjoyNjo0NyAyMDI1OTIyNTU=.pdf,PDF,已确认,细胞制备,待提取,每周,待解析,,,用户确认注意为PDF格式
 STD-01,人源性细胞存储服务通用要求（T/CRHA 041—2024）,中国研究型医院学会,团体标准,团体标准,2024年4月15日,,待确认,PDF,已确认,细胞存储,待提取,每月,待解析,,,用户反馈查不到需进一步确认
 STD-02,实验室人源性干细胞检测通用要求（T/CRHA 003—2021）,中国研究型医院学会,团体标准,团体标准,2022年1月,,待确认,PDF,已确认,细胞检测,待提取,每月,待解析,,,用户反馈查不到需进一步确认
 STD-03,干细胞制剂制备质量管理自律规范,中国医药生物技术协会,行业自律规范,行业自律规范,2016年,,待确认,HTML,已确认,细胞制备,待提取,每月,待解析,,,待确认
 STD-04,细胞库质量管理规范,中国医药生物技术协会,行业自律规范,行业自律规范,2017年,,待确认,HTML,已确认,细胞存储,待提取,每月,待解析,,,待确认
 GB-01,细胞纯度测定通用要求 流式细胞测定法（GB/T 39729—2020）,国家标准委,国家标准,国家标准,2020年,,待确认,HTML,已确认,细胞检测,待提取,每月,待解析,,,待确认
-NMPA-01,药品生产质量管理规范-细胞治疗产品附录,NMPA药监局,NMPA规范,规范性文件,2022年,,http://c.gb688.cn/bzgk/gb/showGb?type=online&hcno=2189E4F0A987569809F6EBF4011A1722&request_locale=zh,HTML,已确认,细胞制备,已提取,每周,已解析,2026-05-11 15:29:20,,待确认
-POL-01,健康中国2030规划纲要,国务院,产业政策,规划纲要,2016年,,https://www.nmpa.gov.cn/directory/web/nmpa/xxgk/fgwj/xzhgfxwj/20250102142249169.html,HTML,已确认,细胞治疗全领域,已提取,每季度,已解析,2026-05-11 15:29:20,,待确认
-POL-02,十三五生物产业发展规划,国家发改委,产业政策,规划纲要,2017年,,https://www.nhc.gov.cn/guihuaxxs/c100132/201610/cef9821abcfc4544bb27e2bc533bd7cf.shtml,HTML,已确认,细胞治疗全领域,已提取,每季度,已解析,2026-05-11 15:29:20,,待确认
-POL-03,十三五医药工业发展规划指南,工信部,产业政策,规划纲要,2017年,,https://www.miit.gov.cn/jgsj/ghs/wjfb/art/2020/art_46a9ce7092874472b61381c7f5e8adc6.html,HTML,已确认,细胞治疗全领域,已提取,每季度,已解析,2026-05-11 15:29:20,,待确认
-POL-04,十三五生物技术创新专项规划,科技部,产业政策,规划纲要,2017年,,https://www.most.gov.cn/kjbgz/201705/t20170524_132924.html,HTML,已确认,细胞治疗全领域,已提取,每季度,已解析,2026-05-11 15:29:20,,待确认
-POL-05,中国制造2025,国务院,产业政策,规划纲要,2015年,,https://wap.miit.gov.cn/ztzl/lszt/zgzz2025/index.html,HTML,已确认,细胞治疗全领域,已提取,每季度,已解析,2026-05-11 15:29:20,,待确认
-POL-06,产业结构调整指导目录（2024年本）,国家发改委,产业政策,规范性文件,2024年,,https://www.gov.cn/zhengce/202401/content_6924187.htm,HTML,已确认,细胞治疗全领域,已提取,每季度,已解析,2026-05-11 15:29:20,,待确认
-SEC-01,生物安全法,全国人大,安全管理法规,法律,2021年,,https://www.mee.gov.cn/ywgz/fgbz/fl/202303/t20230314_1019536.shtml,HTML,已确认,生物安全,已提取,每季度,已解析,2026-05-11 15:29:20,,待确认
-SEC-02,人类遗传资源管理条例,国务院,安全管理法规,条例,2019年,,https://www.gov.cn/zhengce/202306/content_6887562.htm,HTML,已确认,人类遗传资源,已提取,每季度,已解析,2026-05-11 15:29:20,,待确认
-SEC-03,药品管理法,全国人大,安全管理法规,法律,2019年修订,,https://www.gov.cn/gongbao/2026/issue_12546/202602/content_7057461.html,HTML,已确认,药品全领域,已提取,每季度,已解析,2026-05-11 15:29:20,,待确认
-SEC-04,细胞治疗产品生产用原材料的质量管理规范,中国医药生物技术协会,CFDI规范,规范性文件,2023年,,http://www.cmba.org.cn/admin/index.php?m=content&c=index&a=show&catid=116&id=5694,,已确认,细胞治疗全领域,已提取,每季度,已解析,2026-05-11 15:29:20,,
+NMPA-01,药品生产质量管理规范-细胞治疗产品附录,NMPA药监局,NMPA规范,规范性文件,2022年,,http://c.gb688.cn/bzgk/gb/showGb?type=online&hcno=2189E4F0A987569809F6EBF4011A1722&request_locale=zh,HTML,已确认,细胞制备,待提取,每周,待解析,,,待确认
+POL-01,健康中国2030规划纲要,国务院,产业政策,规划纲要,2016年,,https://www.nmpa.gov.cn/directory/web/nmpa/xxgk/fgwj/xzhgfxwj/20250102142249169.html,HTML,已确认,细胞治疗全领域,待提取,每季度,待解析,,,待确认
+POL-02,十三五生物产业发展规划,国家发改委,产业政策,规划纲要,2017年,,https://www.nhc.gov.cn/guihuaxxs/c100132/201610/cef9821abcfc4544bb27e2bc533bd7cf.shtml,HTML,已确认,细胞治疗全领域,待提取,每季度,待解析,,,待确认
+POL-03,十三五医药工业发展规划指南,工信部,产业政策,规划纲要,2017年,,https://www.miit.gov.cn/jgsj/ghs/wjfb/art/2020/art_46a9ce7092874472b61381c7f5e8adc6.html,HTML,已确认,细胞治疗全领域,待提取,每季度,待解析,,,待确认
+POL-04,十三五生物技术创新专项规划,科技部,产业政策,规划纲要,2017年,,https://www.most.gov.cn/kjbgz/201705/t20170524_132924.html,HTML,已确认,细胞治疗全领域,待提取,每季度,待解析,,,待确认
+POL-05,中国制造2025,国务院,产业政策,规划纲要,2015年,,https://wap.miit.gov.cn/ztzl/lszt/zgzz2025/index.html,HTML,已确认,细胞治疗全领域,待提取,每季度,待解析,,,待确认
+POL-06,产业结构调整指导目录（2024年本）,国家发改委,产业政策,规范性文件,2024年,,https://www.gov.cn/zhengce/202401/content_6924187.htm,HTML,已确认,细胞治疗全领域,待提取,每季度,待解析,,,待确认
+SEC-01,生物安全法,全国人大,安全管理法规,法律,2021年,,https://www.mee.gov.cn/ywgz/fgbz/fl/202303/t20230314_1019536.shtml,HTML,已确认,生物安全,待提取,每季度,待解析,,,待确认
+SEC-02,人类遗传资源管理条例,国务院,安全管理法规,条例,2019年,,https://www.gov.cn/zhengce/202306/content_6887562.htm,HTML,已确认,人类遗传资源,待提取,每季度,待解析,,,待确认
+SEC-03,药品管理法,全国人大,安全管理法规,法律,2019年修订,,https://www.gov.cn/gongbao/2026/issue_12546/202602/content_7057461.html,HTML,已确认,药品全领域,待提取,每季度,待解析,,,待确认
+SEC-04,细胞治疗产品生产用原材料的质量管理规范,中国医药生物技术协会,CFDI规范,规范性文件,2023年,,http://www.cmba.org.cn/admin/index.php?m=content&c=index&a=show&catid=116&id=5694,,已确认,细胞治疗全领域,待提取,每季度,待解析,,,
